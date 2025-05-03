@@ -68,10 +68,6 @@ export function DataTable<TData, TValue>({
           placeholder="Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          // value={(table.getColumn("")?.getFilterValue() as string) ?? ""}
-          // onChange={(event) =>
-          //   table.getColumn("")?.setFilterValue(event.target.value)
-          // }
           className="max-w-sm bg-white border border-gray-200"
         />
         <Button

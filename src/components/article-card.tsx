@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { cn } from "../lib/utils";
 import { ArticleStatus } from "../app/enum/article-status.enum";
+import { cn } from "../lib/utils";
 
 interface CardDemoProps {
   className?: string;
@@ -16,6 +16,7 @@ interface CardDemoProps {
   };
   status?: ArticleStatus;
   readTime?: string;
+  hoverText?: string;
 }
 
 export function CardDemo({
@@ -26,6 +27,7 @@ export function CardDemo({
   author,
   readTime,
   status,
+  hoverText,
 }: CardDemoProps) {
   return (
     <div className={cn("max-w-full w-full group/card", className)}>
@@ -34,11 +36,26 @@ export function CardDemo({
           "cursor-pointer overflow-hidden relative card h-96 rounded-md shadow-xl max-w-full mx-auto flex flex-col justify-between p-4",
           `bg-cover`
         )}
-        style={{
-          backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent), url('${imageUrl}')`,
-        }}
       >
-        <div className="absolute w-full h-full top-0 left-0 transition duration-300 group-hover/card:bg-black opacity-60"></div>
+        <Image
+          src={imageUrl!}
+          alt={title!}
+          fill
+          className="object-cover"
+          crossOrigin="anonymous"
+        />
+
+        {/* Overlay gradient di atas image */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70" />
+
+        <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover/card:opacity-100 transition duration-300 flex items-center justify-center z-20">
+          {hoverText ? (
+            <button className="px-6 py-2 bg-white text-black font-semibold rounded-md shadow-md hover:bg-gray-200 transition">
+              {hoverText}
+            </button>
+          ) : null}
+        </div>
+
         <div className="flex flex-row w-full justify-between z-10">
           <div className="flex flex-row items-center space-x-4 ">
             <Image

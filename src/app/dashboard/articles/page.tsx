@@ -100,6 +100,7 @@ export default function DashboardArticles() {
                 }}
                 readTime={"5 min read"}
                 status={article.status}
+                hoverText="Detail"
               />
             </Link>
           ))}

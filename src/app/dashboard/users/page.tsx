@@ -2,8 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "../../../components/data-table";
-import { columns } from "./column";
 import { fetchUsers } from "../../../services/users/fetchUsers";
+import { columns } from "./column";
 
 export default function Users() {
   const { data, isLoading, isError, error } = useQuery({

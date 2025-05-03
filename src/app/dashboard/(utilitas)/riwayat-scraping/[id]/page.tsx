@@ -1,18 +1,18 @@
 "use client";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
-import { fetchPostInstagram } from "../../../../../services/post-instagrams/fetchPostInstagram";
-import { Input } from "../../../../../components/ui/input";
 import { Filter } from "lucide-react";
-import { SkeletonCard } from "../../../../../components/skeleton-card";
-import { PostInstagram } from "../../../../../types/post-instagram";
-import { CardDemo } from "../../../../../components/article-card";
-import { generateUrl } from "../../../../../services/url";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { CardDemo } from "../../../../../components/article-card";
+import { SkeletonCard } from "../../../../../components/skeleton-card";
 import { Dialog, DialogContent } from "../../../../../components/ui/dialog";
+import { Input } from "../../../../../components/ui/input";
 import { Spinner } from "../../../../../components/ui/spinner";
 import { request } from "../../../../../services/api";
+import { fetchPostInstagram } from "../../../../../services/post-instagrams/fetchPostInstagram";
+import { generateUrl } from "../../../../../services/url";
+import { PostInstagram } from "../../../../../types/post-instagram";
 
 export default function DetailRiwayatScraping() {
   const router = useRouter();
@@ -102,6 +102,7 @@ export default function DetailRiwayatScraping() {
                   ? data.data?.profilePic
                   : "https://i.pravatar.cc/300",
               }}
+              hoverText="Convert"
             />
           </div>
         ))}

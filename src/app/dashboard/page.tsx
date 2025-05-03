@@ -1,14 +1,11 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { ChartArticleViews } from "../../components/chart";
 import { StatCard } from "../../components/ui/stat-card";
 import { fetchTotalArticle } from "../../services/dashboard/fetchTotalArticle";
+import { fetchTotalPostInstagram } from "../../services/dashboard/fetchTotalPostInstagram";
 import { fetchTotalUserInstagram } from "../../services/dashboard/fetchTotalUserInstagram";
-import { ChartArticleViews } from "../../components/chart";
-import {
-  fetchTotalPostInstagram,
-  fetchTotalPostInstagramt,
-} from "../../services/dashboard/fetchTotalPostInstagram";
 
 export default function DashboardHomePage() {
   return (

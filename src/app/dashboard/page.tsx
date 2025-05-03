@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { ChartArticleViews } from "../../components/chart";
+import { Skeleton } from "../../components/ui/skeleton";
 import { StatCard } from "../../components/ui/stat-card";
 import { fetchTotalArticle } from "../../services/dashboard/fetchTotalArticle";
 import { fetchTotalPostInstagram } from "../../services/dashboard/fetchTotalPostInstagram";
@@ -29,7 +30,9 @@ function ArticleStats() {
     queryFn: () => fetchTotalArticle(),
   });
 
-  return (
+  return isLoading ? (
+    <Skeleton className="h-24 w-full" />
+  ) : (
     <StatCard title="Total Artikel Telah Dipublikasi" count={data?.data} />
   );
 }
@@ -40,7 +43,11 @@ function UserInstagramStats() {
     queryFn: () => fetchTotalUserInstagram(),
   });
 
-  return <StatCard title="Total User Instagram" count={data?.data} />;
+  return isLoading ? (
+    <Skeleton className="h-24 w-full" />
+  ) : (
+    <StatCard title="Total User Instagram" count={data?.data} />
+  );
 }
 
 function PostInstagramStats() {
@@ -49,5 +56,9 @@ function PostInstagramStats() {
     queryFn: () => fetchTotalPostInstagram(),
   });
 
-  return <StatCard title="Total Post Instagram" count={data?.data} />;
+  return isLoading ? (
+    <Skeleton className="h-24 w-full" />
+  ) : (
+    <StatCard title="Total Post Instagram" count={data?.data} />
+  );
 }

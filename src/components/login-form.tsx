@@ -1,8 +1,19 @@
 "use client";
 
-import { ThemeProvider } from "./theme-provider";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { authSchema } from "../schemas/auth";
+import { ThemeProvider } from "./theme-provider";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import {
   Form,
   FormControl,
@@ -11,27 +22,10 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { toast } from "sonner";
-import { authSchema } from "../schemas/auth";
-import { login } from "../services/auth";
-import { useRouter } from "next/navigation";
-import { LoadingButton } from "./ui/loading-button";
-import { X } from "lucide-react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
 import { Input } from "./ui/input";
-import { signIn } from "next-auth/react";
+import { LoadingButton } from "./ui/loading-button";
 
 export function LoginForm() {
-  const router = useRouter();
-
   const form = useForm<z.infer<typeof authSchema>>({
     resolver: zodResolver(authSchema),
     defaultValues: {

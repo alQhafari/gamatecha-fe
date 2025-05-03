@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import Dropzone from "shadcn-dropzone";
-import { cn } from "../../lib/utils";
-import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
-import { UploadFile } from "../../services/upload/uploadFile";
-import { toast } from "sonner";
 import { X } from "lucide-react";
+import Image from "next/image";
+import Dropzone from "shadcn-dropzone";
+import { toast } from "sonner";
+import { cn } from "../../lib/utils";
+import { UploadFile } from "../../services/upload/uploadFile";
 import { SkeletonCard } from "../skeleton-card";
 
 const InputFile = React.forwardRef<
   HTMLInputElement,
   React.ComponentProps<"input"> & { onChange?: (value: string) => void }
->(({ className, ...props }, ref) => {
+>(({ className, ...props }) => {
   const [previews, setPreviews] = React.useState<string[]>([]);
 
   const { mutate, isPending } = useMutation({

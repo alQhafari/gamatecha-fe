@@ -1,10 +1,10 @@
 "use client";
 
-import { columns } from "./column";
-import { DataTable } from "../../../../components/data-table";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserInstagram } from "../../../../services/user-instagrams/fetchUserInstagram";
 import { useState } from "react";
+import { DataTable } from "../../../../components/data-table";
+import { fetchUserInstagram } from "../../../../services/user-instagrams/fetchUserInstagram";
+import { columns } from "./column";
 
 export default function DashboardArticles() {
   const [page, setPage] = useState(1);
@@ -29,6 +29,8 @@ export default function DashboardArticles() {
         currentPage={data?.meta.page || 1}
         totalPage={data?.meta.totalPage || 1}
         setPage={setPage}
+        search={search}
+        setSearch={setSearch}
       />
     </div>
   );

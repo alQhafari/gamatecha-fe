@@ -1,24 +1,22 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { fetchChartArticleViews } from "../services/dashboard/fetchChartArticleViews";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { useQuery } from "@tanstack/react-query";
-import { fetchChartArticleViews } from "../services/dashboard/fetchChartArticleViews";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "./ui/chart";
-import { useMemo } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 const chartConfig = {
   value: {
@@ -33,7 +31,9 @@ export function ChartArticleViews() {
     queryFn: () => fetchChartArticleViews(),
   });
 
-  return (
+  return isLoading ? (
+    <Skeleton className="h-72 w-full" />
+  ) : (
     <Card>
       <CardHeader>
         <CardTitle>Statistik Viewers</CardTitle>

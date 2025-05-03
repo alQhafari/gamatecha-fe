@@ -6,13 +6,20 @@ export default auth((req) => {
   const authorizedFallbackUrl = process.env.FALLBACK_AUTHORIZED_URL_PATH;
   const unauthorizedFallbackUrl = process.env.FALLBACK_UNAUTHORIZED_URL_PATH;
 
-  const pathsRequiringAuth = [authorizedFallbackUrl];
-  const pathsRequiringNoAuth = [unauthorizedFallbackUrl];
+  const pathsRequiringAuth = [authorizedFallbackUrl].filter(
+    (path): path is string => typeof path === "string"
+  );
+  const pathsRequiringNoAuth = [unauthorizedFallbackUrl].filter(
+    (path): path is string => typeof path === "string"
+  );
 
   if (
     pathsRequiringAuth.some((path) => currentPathname.startsWith(path)) &&
     !req.auth
   ) {
+    if (!unauthorizedFallbackUrl) {
+      throw new Error("FALLBACK_UNAUTHORIZED_URL_PATH is not defined");
+    }
     return NextResponse.redirect(new URL(unauthorizedFallbackUrl, req.url));
   }
 
@@ -20,6 +27,9 @@ export default auth((req) => {
     pathsRequiringNoAuth.some((path) => currentPathname.startsWith(path)) &&
     req.auth
   ) {
+    if (!authorizedFallbackUrl) {
+      throw new Error("FALLBACK_AUTHORIZED_URL_PATH is not defined");
+    }
     return NextResponse.redirect(new URL(authorizedFallbackUrl, req.url));
   }
 

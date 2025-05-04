@@ -13,10 +13,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/src/components/ui/sidebar";
-import { ThemeProvider } from "../../components/theme-provider";
-import { ReactNode } from "react";
-import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
+import { ThemeProvider } from "../../components/theme-provider";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();

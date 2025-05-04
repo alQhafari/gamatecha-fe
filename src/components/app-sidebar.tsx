@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   Command,
   History,
@@ -9,6 +8,7 @@ import {
   SquareTerminal,
   User,
 } from "lucide-react";
+import * as React from "react";
 
 import logo from "../../public/assets/images/Horizontal Putih Merah 0-2.png";
 
@@ -24,8 +24,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/src/components/ui/sidebar";
-import { NavDashboard } from "./nav-dashboard";
+import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { fetchMe } from "../services/users/fetchMe";
+import { NavDashboard } from "./nav-dashboard";
+import { Skeleton } from "./ui/skeleton";
 
 const data = {
   user: {
@@ -76,6 +80,13 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { data: session } = useSession();
+
+  const { data: user, isLoading } = useQuery({
+    queryKey: ["sidebar-data"],
+    queryFn: async () => fetchMe(session?.data.accessToken ?? ""),
+  });
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -96,7 +107,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {isLoading ? (
+          <Skeleton className="h-24 w-full" />
+        ) : (
+          <NavUser user={user?.data} />
+        )}
       </SidebarFooter>
     </Sidebar>
   );

@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "gamatecha-fe",
-      script: "pnpm",
+      script: "npm",
       args: "run start",
       watch: false,
     },

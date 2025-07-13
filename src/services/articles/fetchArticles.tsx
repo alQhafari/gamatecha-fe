@@ -4,9 +4,10 @@ import { request } from "../api";
 import { generateUrl } from "../url";
 
 export const fetchArticles = async (
-  page: number
+  page: number,
+  search: string = ""
 ): Promise<BasePaginatedApiResponse<Article>> => {
-  return await request(generateUrl(`articles`, { page, limit: 4 }), {
+  return await request(generateUrl(`articles`, { page, limit: 8, search }), {
     method: "GET",
   });
 };

@@ -36,6 +36,8 @@ const data = {
     name: "shadcn",
     email: "m@example.com",
     avatar: "https://i.pravatar.cc/300",
+    username: "",
+    isAdmin: false,
   },
   dashboard: [
     {
@@ -103,6 +105,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavDashboard items={data.dashboard} />
         <NavMain items={data.navMain} />
+
         <NavUtils projects={data.projects} />
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>

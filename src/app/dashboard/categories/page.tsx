@@ -25,7 +25,6 @@ export default function Categories() {
   return (
     <div className="">
       <h1 className="text-2xl font-bold mb-4">Kategori</h1>
-      {isLoading && <span>Loading...</span>}
       <DataTable
         search={search}
         columns={columns}
@@ -34,6 +33,7 @@ export default function Categories() {
         totalPage={data?.meta.totalPage || 1}
         setPage={setPage}
         setSearch={setSearch}
+        isLoading={isLoading}
       />
     </div>
   );

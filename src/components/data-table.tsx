@@ -10,6 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { Skeleton } from "@/src/components/ui/skeleton";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -32,16 +33,20 @@ interface DataTableProps<TData, TValue> {
   setPage: (page: number) => void;
   setSearch: (search: string) => void;
   search: string;
+  isLoading?: boolean;
+  handleCreateUser?: () => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  isLoading,
   currentPage,
   totalPage,
   setPage,
   search,
   setSearch,
+  handleCreateUser,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
 
@@ -71,10 +76,14 @@ export function DataTable<TData, TValue>({
           className="max-w-sm bg-white border border-gray-200"
         />
         <Button
-          onClick={() => {
-            const currentPath = window.location.pathname;
-            router.push(`${currentPath}/tambah`);
-          }}
+          onClick={
+            handleCreateUser
+              ? handleCreateUser
+              : () => {
+                  const currentPath = window.location.pathname;
+                  router.push(`${currentPath}/tambah`);
+                }
+          }
           variant="secondary"
         >
           <Plus size={24} />
@@ -105,7 +114,14 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody className="border-gray-200">
-            {table.getRowModel().rows?.length ? (
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={columns.length}>
+                  <Skeleton className="h-24" />
+                </TableCell>
+              </TableRow>
+            )}
+            {table.getRowModel().rows?.length && isLoading === false ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   className="border-gray-200 hover:bg-gray-100"
@@ -122,13 +138,13 @@ export function DataTable<TData, TValue>({
                   ))}
                 </TableRow>
               ))
-            ) : (
+            ) : isLoading ? null : (
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Tidak ada data yang ditemukan
                 </TableCell>
               </TableRow>
             )}

@@ -10,10 +10,10 @@ interface CardDemoProps {
   slug?: string;
   description?: string;
   imageUrl?: string;
-  author: {
+  author?: {
     name: string;
     avatar: string;
-  };
+  } | null;
   status?: ArticleStatus;
   readTime?: string;
   hoverText?: string;
@@ -29,6 +29,8 @@ export function CardDemo({
   status,
   hoverText,
 }: CardDemoProps) {
+  console.log(author);
+
   return (
     <div className={cn("max-w-full w-full group/card", className)}>
       <div
@@ -58,7 +60,26 @@ export function CardDemo({
 
         <div className="flex flex-row w-full justify-between z-10">
           <div className="flex flex-row items-center space-x-4 ">
-            <Image
+            {author ? (
+              <div className="flex items-center space-x-2">
+                <Image
+                  height="100"
+                  width="100"
+                  alt="Avatar"
+                  src={author.avatar}
+                  className="h-10 w-10 rounded-full border-2 object-cover"
+                />
+                <div className="flex flex-col">
+                  <p className="font-normal text-base text-gray-50 relative z-10">
+                    {author.name}
+                  </p>
+                  {readTime && (
+                    <p className="text-sm text-gray-400">{readTime}</p>
+                  )}
+                </div>
+              </div>
+            ) : null}
+            {/* <Image
               height="100"
               width="100"
               alt="Avatar"
@@ -70,7 +91,7 @@ export function CardDemo({
                 {author.name}
               </p>
               <p className="text-sm text-gray-400">{readTime}</p>
-            </div>
+            </div> */}
           </div>
           {status ? (
             <div>

@@ -1,9 +1,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Eye } from "lucide-react";
-import Link from "next/link";
-import { Button } from "../../../components/ui/button";
 import { User } from "../../../types/user";
 
 export const columns: ColumnDef<User>[] = [
@@ -20,21 +17,20 @@ export const columns: ColumnDef<User>[] = [
     header: "Email",
   },
   {
-    accessorKey: "password",
-    header: "Password",
-  },
-  {
-    accessorKey: "action",
-    header: "Action",
+    accessorKey: "isAdmin",
+    header: "Admin",
     cell: ({ row }) => {
-      const user = row.original;
+      const isAdmin = row.getValue("isAdmin") as boolean;
       return (
-        <Link href={`/dashboard/users/${user.id}`}>
-          <Button variant={"secondary"}>
-            <Eye />
-            View
-          </Button>
-        </Link>
+        <span
+          className={`px-2 py-1 rounded text-xs font-medium ${
+            isAdmin
+              ? "bg-green-100 text-green-800"
+              : "bg-gray-100 text-gray-800"
+          }`}
+        >
+          {isAdmin ? "Yes" : "No"}
+        </span>
       );
     },
   },

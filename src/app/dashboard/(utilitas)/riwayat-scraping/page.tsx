@@ -22,7 +22,6 @@ export default function DashboardArticles() {
   return (
     <div className="">
       <h1 className="text-2xl font-bold mb-4">Riwayat Scraping</h1>
-      {isLoading && <span>Loading...</span>}
       <DataTable
         columns={columns}
         data={data ? data.data : []}
@@ -31,6 +30,7 @@ export default function DashboardArticles() {
         setPage={setPage}
         search={search}
         setSearch={setSearch}
+        isLoading={isLoading}
       />
     </div>
   );

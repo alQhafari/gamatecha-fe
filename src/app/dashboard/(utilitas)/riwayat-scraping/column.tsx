@@ -2,11 +2,11 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye } from "lucide-react";
+import * as momentJs from "moment";
+import "moment/locale/id";
 import Link from "next/link";
 import { Button } from "../../../../components/ui/button";
 import { UserInstagram } from "../../../../types/user-instagram";
-import * as momentJs from "moment";
-import "moment/locale/id";
 
 export const columns: ColumnDef<UserInstagram>[] = [
   {
@@ -24,10 +24,6 @@ export const columns: ColumnDef<UserInstagram>[] = [
         .default(userInstagram.updatedAt)
         .format("dddd, MMMM Do YYYY");
     },
-  },
-  {
-    accessorKey: "totalPost",
-    header: "Jumlah Postingan",
   },
   {
     accessorKey: "action",

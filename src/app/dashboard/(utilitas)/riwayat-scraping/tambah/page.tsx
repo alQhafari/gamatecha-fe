@@ -53,7 +53,7 @@ export default function TambahRiwayatScraping() {
 
   const username = form.watch("username");
 
-  const { data, isLoading } = useQuery({
+  const { data, isFetching } = useQuery({
     placeholderData: keepPreviousData,
     queryKey: ["user-instagram/search", { username }],
     queryFn: () => searchUserInstagram(username),
@@ -111,7 +111,7 @@ export default function TambahRiwayatScraping() {
           </form>
         </Form>
 
-        {isLoading || loadingPostInstagram ? (
+        {isFetching || loadingPostInstagram ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
             {Array.from({ length: 6 }).map((_, idx) => (
               <div
@@ -151,7 +151,7 @@ export default function TambahRiwayatScraping() {
           {PostInstagram?.data.map((post, key) => (
             <div key={key}>
               <CardDemo
-                description={post.caption.text.slice(0, 100)}
+                description={post.caption?.text.slice(0, 100) ?? ""}
                 imageUrl={post.thumbnail_url}
                 author={{
                   name: `${post.user.username}`,
